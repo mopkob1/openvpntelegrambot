@@ -1,0 +1,13 @@
+POST https://<domain-name>/api/resend
+Content-Type: application/json
+
+{
+  "apikey":"test_api_key",
+  "date":"2022-06-27 00:46:10.239072",
+  "body":"ТЕкст https://telegra.ph/INSTRUKCIYA-PO-RABOTE-S-GARANT-BOTOM-05-08-2 jhjdksdskj",
+  "phone":" ",
+  "type":"sms"
+}
+
+
+###

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  ovpn:
+    container_name: ovpn
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: ./docker/ovpn
+    ports:
+      - "${VPN_PORT}:1194/udp"
+    volumes:
+      - ./share/conf:/etc/openvpn
+      - ./docker/ovpn/adds:/opt/code
+      - ./share/pipes:/opt/pipes
+      - ./share/clients:/opt/clients
+      - ./share/files:/opt/files
+    command:
+      - pipes.sh
+    environment:
+      - TZ=Europe/Berlin
+  botapi:
+    container_name: botapi
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: .
+      dockerfile: ./docker/api/Dockerfile
+      args:
+        # Available [trace|debug|profile]. Use Comma separated available values for multiple mode
+        # Use "off" to disable xdebug
+#        - XDEBUG_MODES=debug,trace
+        #        - XDEBUG_MODES=off
+        # Set the following values to overwrite the existing settings.
+        # Uncomment the following line and change value.
+        - REMOTE_HOST=host.docker.internal # Host machine IP
+        - REMOTE_PORT=9003 # IDE/Editor's listener port
+        - IDE_KEY=docker # IDE's filter/listener key
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+    ports:
+      - "${API_PORT}:9000"
+    volumes:
+      - ./share/pipes:/opt/pipes
+      - ./share/files:/opt/files
+      - ./share/clients:/opt/clients
+      - ./code/tgbot:/var/www/html
+      - /tmp/xdebug:/tmp/xdebug
+    environment:
+      PHP_IDE_CONFIG: "serverName=ddebug"

@@ -1,0 +1,107 @@
+#!/bin/bash
+## Возвращает заданный диапазон входящего массива
+listpairs(){
+  IFS=$'\n'
+  ADDRS=($1)
+  unset IFS;
+  MIN="${2:-}"
+  MAX="${3:-}"
+  i=-1
+  for ADDR in "${ADDRS[@]}"; do
+    let "i += 1"
+    [ "$MAX" ] && {
+      (( ($MIN-1) < $i )) && (( ($MAX+1) > $i )) && echo $ADDR
+      continue
+    }
+    [ "$MIN" ] && {
+      [ "$MIN" == "$i" ] && echo $ADDR
+      continue
+    }
+    echo $ADDR
+  done
+}
+function stop() {
+    [ "$1" ] && return
+    echo "$2"
+    exit 3
+}
+function exist() {
+    [ "$1" ] || return
+    echo "$2"
+    exit 0
+}
+## Увеличивает или уменьшает последнюю триаду входящего IP на заданное число
+changeip(){
+  ADDS="${3:-1}"
+  SIGN="${2:-+}"
+  IP=$1
+  FIRST=${IP%\.*}
+  LAST=${IP##*\.}
+  let "LAST = $LAST $SIGN $ADDS"
+  echo "$FIRST.$LAST"
+}
+## Принимает на вход два массива. Занятые пары и все пары.
+## Если третий аргумент пуст, возвращает первую свободную.
+## Если третий аргумент равен -1, возращает все свободные.
+## При других значения третьего аргумента проводит grep списка.
+## Если запустить без аргументов, вернет первую свободную
+freepairs(){
+      BUSY=(${1:-`busyaddrs "$OPENVPN/ccd"`})
+  ALL=("${2:-`get_pairs_netcalc.sh $OVPN_SERVER | awk '{print $1}'`}")
+
+  FREE=(`echo "${BUSY[@]}" "${ALL[@]}" | \
+  sed 's/ /\n/g'  | \
+  sort | \
+  uniq -u`)
+
+  [ "$3" ] || {
+    echo "${FREE[1]} $(changeip ${FREE[1]})"
+    return
+  }
+
+  LOOKFOR="$3"
+  [ "$3" == "-1" ] && LOOKFOR=""
+  for FIRST in "${FREE[@]}" ; do
+    echo "$FIRST $(changeip $FIRST)" | grep "$LOOKFOR"
+  done
+}
+
+## На входе путь к ccd папке, на выходе список пользователей в формате:
+## Имя:адресная пара через пробел
+getusers(){
+  BUSY=(${1:-"$OPENVPN/ccd"})
+  grep  -e ".*" -rw "$BUSY" | \
+  sed 's/ifconfig-push //g' | \
+  awk -F'ccd/' '{print $2}'
+}
+
+## На входе путь к ccd папке, на выходе список занятых адресов
+busyaddrs(){
+  BUSY=(${1:-"$OPENVPN/ccd"})
+  getusers $BUSY | awk -F: '{print $2}' | awk '{print $1}' | sort
+}
+
+## Возвращает номер строки в файле $1, состоящий из $4,
+## находящейся между строками, соответсвующими RegExp $2 и $3
+lineinrange(){
+  LOOKFOR="${4:-$3}"
+  cat -n "$1" | sed -n "/${2//\//\\/}/,/${3//\//\\/}/p" | grep "$LOOKFOR"| awk '{print $1}'
+}
+
+## Вставляет в файл $3 фрагмент из файла $2 сразу после строки $1
+insertafter(){
+  sed "$1 r $2" $3
+}
+### Строка для видиния точка точка (для двустороннего, нужно две строки)
+iptptp(){
+  echo "-A FORWARD -i tun0  -s $1/32 -d $2/32 -j ACCEPT"
+}
+### Строка для видиния всех
+iptall(){
+## sed '3,5 d' ipt удалить
+  echo "-A FORWARD -i tun0 -s $1/32 -j ACCEPT"
+  echo "-A FORWARD -s $OVPN_SERVER -d $1/32 -i tun0 -j ACCEPT"
+}
+hidehost(){
+  echo "-A FORWARD -s $2/32 -d $1/32 -i tun0 -j DROP"
+}

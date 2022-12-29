@@ -1,0 +1,37 @@
+{
+    "name": "mytestbot/mytestbot",
+    "description": "mytestbot desc",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Helper\\": "helper",
+            "App\\": "app/src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "secure-http": false
+    },
+    "repositories" : [
+        {
+            "type": "composer",
+            "url": "https://packs.1qr.org"
+        }
+    ],
+    "require": {
+        "ext-json" : "*",
+        "ext-curl" : "*",
+        "ext-mbstring" : "*",
+        "monolog/monolog": "^2.2.0",
+        "slim/slim": ">=4.8.0",
+        "slim/psr7": "^1.3.0",
+
+        "loandbeholdru/slimcontrol" : "*",
+        "loandbeholdru/shorts" : "*",
+        "loandbeholdru/pipe": "*",
+        "php": ">=7.4",
+        "longman/telegram-bot": "*",
+        "vlucas/phpdotenv": "^4.1"
+    }
+}
