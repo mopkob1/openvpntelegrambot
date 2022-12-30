@@ -405,9 +405,9 @@ The easiest way to contribute is to use this software and share it on your socia
 If you find a bug or want to suggest improvements, write about it using github.
 
 ## Donate
-[Boosty.to](https://boosty.to/mopkob/single-payment/donation/299388?share=target_link)
-[Ko-Fi.com](https://ko-fi.com/mopkob)
-[destream.net](https://destream.net/live/mopkob/donate)
+[Boosty.to](https://boosty.to/mopkob/single-payment/donation/299388?share=target_link)  
+[Ko-Fi.com](https://ko-fi.com/mopkob)  
+[destream.net](https://destream.net/live/mopkob/donate)  
 
 ## License
 Please see the [LICENSE](./LICENSE) included in this repository for a full copy of the MIT license, which this project is licensed under.
