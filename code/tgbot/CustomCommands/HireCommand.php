@@ -56,7 +56,7 @@ class HireCommand extends UserCommand
             $msg = sprintf(msg::hire('ERROR'), $this->vpnname($tohire), $e->getMessage());
         }
 
-        $resp = $this->inform()
+        $resp = $this->inform($tohire)
             ->broadcast($msg, ...consts::ADMINS());
 
         return in_array($tohire, consts::ADMINS())

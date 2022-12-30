@@ -2,6 +2,7 @@
 
 
 define('STORE', __DIR__ . '/../Store');
+define('NAMESTORE', STORE . '/names.json');
 define('SUBSSTORE', STORE . '/subs.json');
 define('USERsSTORE', STORE . '/users.json');
 define('CERTsSTORE', STORE . '/certs.json');

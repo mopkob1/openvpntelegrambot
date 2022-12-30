@@ -83,7 +83,7 @@ for example, using the service [LetsEncrypt](https://letsencrypt.org/)
 ```shell
 server {
 	server_name <domain_name>;
-	root /var/www/html;
+	root /var/www/html/public;
 	access_log  /var/www/html/access.log;
 	error_log   /var/www/html/error.log;
 

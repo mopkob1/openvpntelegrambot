@@ -41,12 +41,15 @@ $telegram->setUpdateFilter(function (Update $update, Telegram $telegram, &$reaso
         return true;
     $id = $update->getMessage()->getFrom()->getId();
     $users = local::loadusers(consts::PARTICIPANTS());
-    $users[$id] = strtolower($update->getMessage()->getFrom()->getUsername()
-        ?? $update->getMessage()->getFrom()->getId());
+    $names = local::loadusers(consts::NAMESTORE());
+    $users[$id] = strtolower($update->getMessage()->getFrom()->getUsername() ?? $id);
+    $names[$id] = sprintf("%s %s", $update->getMessage()->getFrom()->getFirstName() ?? $id,
+        $update->getMessage()->getFrom()->getLastName() ?? $id);
     foreach (consts::ADMINS() as $admin)
         $users[$admin] = $users[$admin] ?? uniqid("admin_");
 
     local::storeusers($users, consts::PARTICIPANTS());
+    local::storeusers($names, consts::NAMESTORE());
     return true;
 });
 

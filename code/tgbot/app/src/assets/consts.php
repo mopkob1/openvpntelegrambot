@@ -47,6 +47,11 @@ class consts extends data
         return SUBSSTORE;
     }
 
+    public static function NAMESTORE()
+    {
+        return NAMESTORE;
+    }
+
     public static function WELCOME()
     {
         return arrays::ifDefined(

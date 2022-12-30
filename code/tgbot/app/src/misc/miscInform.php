@@ -7,13 +7,12 @@ use GuzzleHttp\Client;
 
 trait miscInform
 {
-    protected function inform()
+    protected function inform(string $id)
     {
         try {
-            $template = "%s %s|%s|%s";
-            $this->buildCaption($template);
-            list($name, $user, $id) = explode('|', $template);
-            $userinfo = json_encode(compact('user', 'name', 'id'));
+            $user = consts::PARTICIPANTS()["$id"] ?? $id;
+            $name = $names = local::loadusers(consts::NAMESTORE())[$id] ?? $id;
+            $userinfo = json_encode(compact('user', 'id', 'name'));
 
             $client = new Client(['headers' => [
                 'Content-Type' => 'application/json',

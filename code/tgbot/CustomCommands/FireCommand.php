@@ -38,7 +38,7 @@ class FireCommand extends UserCommand
                 throw new otherException(msg::fire('NOTFOUND'));
             }
 
-            $this->checkAdmins(...consts::ADMINS())
+            $this->checkAdmins($tofire, ...consts::ADMINS())
                 ->runCommands($tofire, $tofire, 'unsubs')
                 ->storeusers($newusers, consts::USERsSTORE());
 
