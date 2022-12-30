@@ -366,6 +366,21 @@ The current visibility settings can be obtained by giving the bot a command (__a
 
 The visibility of hosts is always two-sided.
 
+## Troubleshooting
+When you start your containers, you may want to check your bot without webserver.  
+1. Install that (debian example):  
+```shell
+# Install cgi-fcgi:
+sudo apt update && sudo apt install libfcgi0ldbl
+```
+2. Run that and get 200:  
+```shell
+SCRIPT_NAME=/index.php \
+SCRIPT_FILENAME=/var/www/html/index.php \
+REQUEST_METHOD=GET \
+cgi-fcgi -bind -connect 127.0.0.1:<api_port>
+```
+
 ## Documentation
 No additional documentation. But if you like to read or want to develop something on top of this software, 
 you can read follow sources:  
@@ -390,7 +405,9 @@ The easiest way to contribute is to use this software and share it on your socia
 If you find a bug or want to suggest improvements, write about it using github.
 
 ## Donate
-Coming soon.
+[Boosty.to](https://boosty.to/mopkob/single-payment/donation/299388?share=target_link)
+[Ko-Fi.com](https://ko-fi.com/mopkob)
+[destream.net](https://destream.net/live/mopkob/donate)
 
 ## License
 Please see the [LICENSE](./LICENSE) included in this repository for a full copy of the MIT license, which this project is licensed under.
