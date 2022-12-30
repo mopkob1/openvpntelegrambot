@@ -39,7 +39,7 @@ class FireCommand extends UserCommand
             }
 
             $this->checkAdmins($tofire, ...consts::ADMINS())
-                ->runCommands($tofire, $tofire, 'unsubs')
+                ->runCommands($tofire, $tofire, 'unsubs', 'revoke')
                 ->storeusers($newusers, consts::USERsSTORE());
 
             $this->sendMessage(msg::fire('DONE'), $tofire);

@@ -45,11 +45,10 @@ class RevokeCommand extends UserCommand
 
             $this->userid($torevoke, new userNotfoundException(sprintf(
                 msg::revoke('NOTFOUND'), $torevoke ?? $name ?? "n|a")));
-
-            local::checkeusers(
-                $name ?? $this->vpnname($torevoke),consts::CERTsSTORE(),
+            $name = $name ?? $this->vpnname($torevoke) ?? $torevoke;
+            local::checkeusers($name,consts::CERTsSTORE(),
                 new userNotfoundException(sprintf(
-                    msg::revoke('NOTFOUND'), $name ?? $torevoke ?? "n|a")));
+                    msg::revoke('NOTFOUND'), $name  ?? "n|a")));
 
             $this->chatAction($info);
 
