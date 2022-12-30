@@ -94,7 +94,7 @@ server {
         }
 
         location ~ \.api$ {
-            root /var/www/public;
+            root /var/www/html/public;
     	    fastcgi_split_path_info ^(.+\.api)(/.+)$;
 
     	    fastcgi_pass 127.0.0.1:<api_port>;
