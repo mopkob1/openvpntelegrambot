@@ -6,7 +6,8 @@ try {    // Handle telegram webhook request
     $telegram->handle();
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
+    file_put_contents(ERRORLOG, $e->getMessage() . PHP_EOL, FILE_APPEND);
     Longman\TelegramBot\TelegramLog::error($e);
 }catch (Throwable $e){
-    echo "BAD!!!";
+    file_put_contents(ERRORLOG, $e->getMessage() . PHP_EOL, FILE_APPEND);
 }

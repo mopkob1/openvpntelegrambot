@@ -42,6 +42,7 @@ class GenericmessageCommand extends SystemCommand
             consts::ENV("LOADIFNOTYET");
             $msg = arrays::substfields($msg, $_ENV);
         }catch (\Throwable $e){
+            file_put_contents(ERRORLOG, $e->getMessage() . PHP_EOL, FILE_APPEND);
             $msg = null;
         }
 

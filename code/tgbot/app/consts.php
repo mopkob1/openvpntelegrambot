@@ -10,6 +10,7 @@ define('STATSTORE', STORE . '/stat');
 define('STATSTOREFILE', STATSTORE . '/stat_%s.json');
 define('VIRTS', STORE . '/virtuals.json');
 define('PIPE', '/opt/pipes/vpnpipe');
+define('ERRORLOG', STORE . '/criticals.log');
 
 //------------------ You have to change bellow
 date_default_timezone_set('Europe/Moscow');

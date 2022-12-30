@@ -64,9 +64,14 @@ class StartCommand extends UserCommand
 
     protected function welcome(&$resp)
     {
-        consts::ENV("LOADINNOTYET");
-        $msg = arrays::substfields(file_get_contents(consts::WELCOME()), $_ENV);
-        $resp = $this->enrich($msg, $this->getMessage()->getChat()->getId());
+        try{
+            consts::ENV("LOADINNOTYET");
+            $msg = arrays::substfields($file = file_get_contents(consts::WELCOME()), $_ENV);
+            $resp = $this->enrich($msg, $this->getMessage()->getChat()->getId());
+        }catch (\Throwable $e){
+            file_put_contents(ERRORLOG, $e->getMessage() . PHP_EOL, FILE_APPEND);
+        }
+
         return $this;
     }
 

@@ -31,6 +31,7 @@ class HireCommand extends UserCommand
 
     public function execute() : ServerResponse
     {
+
         try {
             $tohire = $this->getMessage()
                 ->getText(true);

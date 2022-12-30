@@ -11,7 +11,7 @@ class data
     protected static $defs;
     public static function ENV(string $name, array $env = null, $def = null)
     {
-        $data = ($env ?? $_ENV)[$name] ?? $def;
+        $data = ($env ?? $_ENV ?? [])[$name] ?? $def;
         if ($data != $def) return $data;
 
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../../../');

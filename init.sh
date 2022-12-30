@@ -7,7 +7,7 @@ NEEDPIPE=yes
 NEEDCONF=yes
 NEEDPKI=yes
 NEEDRULES=yes
-NEEDDEBUG=yes
+
 
 
 export APIID=$(grep api docker-compose.yml | grep container_name |  awk -F': ' '{print $2}')

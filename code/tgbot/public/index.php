@@ -27,6 +27,7 @@ try {
 }catch (HttpNotFoundException $e){
     include __DIR__ . '/tg.php';
 }catch (Throwable $e){
+    file_put_contents(ERRORLOG, $e->getMessage() . PHP_EOL, FILE_APPEND);
     echo $e->getMessage();
 }
-$a = 2;
+

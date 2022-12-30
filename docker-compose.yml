@@ -31,7 +31,7 @@ services:
       args:
         # Available [trace|debug|profile]. Use Comma separated available values for multiple mode
         # Use "off" to disable xdebug
-        - XDEBUG_MODES=debug,trace
+        # - XDEBUG_MODES=debug,trace
         #        - XDEBUG_MODES=off
         # Set the following values to overwrite the existing settings.
         # Uncomment the following line and change value.
