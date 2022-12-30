@@ -7,7 +7,7 @@ NEEDPIPE=yes
 NEEDCONF=yes
 NEEDPKI=yes
 NEEDRULES=yes
-#NEEDDEBUG=yes
+NEEDDEBUG=yes
 
 
 export APIID=$(grep api docker-compose.yml | grep container_name |  awk -F': ' '{print $2}')
@@ -73,6 +73,7 @@ STATUS=$(docker-compose logs | grep "Initialization Sequence Completed")
   cont "${RULES}" " - Setting iptables control." "${OVPNID}"
 }
 [ "$NEEDDEBUG" ] && {
+  echo "Change rights on debug dir: /tmp/xdebug"
   sudo mkdir -p /tmp/xdebug
   sudo chmod -R 777 /tmp/xdebug
 }

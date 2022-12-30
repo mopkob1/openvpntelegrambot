@@ -9,6 +9,7 @@
   - [Configure your nginx to serve container](#configure-your-nginx-to-serve-container)
   - [Configuring containers](#configuring-containers)
 - [Bot service](#bot-service)
+- [Troubleshooting](#troubleshooting)
 - [Documentation](#documentation)
 - [Demo bot](#demo-bot)
 - [Contributing](#contributing)
@@ -376,7 +377,7 @@ sudo apt update && sudo apt install libfcgi0ldbl
 2. Run that and get 200:  
 ```shell
 SCRIPT_NAME=/index.php \
-SCRIPT_FILENAME=/var/www/html/index.php \
+SCRIPT_FILENAME=/var/www/html/public/index.php \
 REQUEST_METHOD=GET \
 cgi-fcgi -bind -connect 127.0.0.1:<api_port>
 ```
