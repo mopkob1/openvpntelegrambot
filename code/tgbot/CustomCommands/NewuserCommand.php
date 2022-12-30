@@ -35,11 +35,12 @@ class NewuserCommand extends UserCommand
     {
         $info = [$this->chatid()];
         try{
-            $this->firstopt($tocert)
-                ->checkAdmins(...consts::ADMINS());
+            $this->firstopt($tocert);
+
             list($tocert, $name) = $this->lookforname(
                 $tocert, new userNotfoundException(sprintf(
                     msg::newuser('NOTREG'), $tocert)));
+            $this->checkAdmins(...consts::ADMINS());
             $info[] =  $tocert;
             // Админ задал существующего пользователя. Реального или виртуального
         }catch (notadminException $e){
