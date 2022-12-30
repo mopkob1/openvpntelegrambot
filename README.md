@@ -83,28 +83,27 @@ for example, using the service [LetsEncrypt](https://letsencrypt.org/)
 ```shell
 server {
 	server_name <domain_name>;
-	root /var/www/html/public;
+	root /var/www/html;
 	access_log  /var/www/html/access.log;
 	error_log   /var/www/html/error.log;
+	
+	index  index.php index.html index.htm index.nginx-debian.html;
 
-	index  index.api index.html index.htm index.nginx-debian.html;
+    location / {
+        try_files $uri /index.php?$args;
+    }
 
-        location / {
-            try_files $uri /index.api?$args;
-        }
-
-        location ~ \.api$ {
-            root /var/www/html/public;
-    	    fastcgi_split_path_info ^(.+\.api)(/.+)$;
-
-    	    fastcgi_pass 127.0.0.1:<api_port>;
-	        fastcgi_index index.api;
-            fastcgi_read_timeout 1000;
-	        include fastcgi_params;
-	        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_param PATH_INFO $fastcgi_path_info;
-            resolver 127.0.0.1;
-        }
+    location ~ \.php$ {
+        root /var/www/html/public;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass 127.0.0.1:<API_PORT>;
+        fastcgi_index index.php;
+        fastcgi_read_timeout 1000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        resolver 127.0.0.1;
+    }
 
     location ~ /\.ht {
     	deny all;
