@@ -296,7 +296,7 @@ class msg
             'PIPE_ERROR' => 'Some problems with pipe in impart!',
             'GET_ERROR' => 'Problem with getting files!',
             'ERROR' => "Can't found certs for user *%s* and get follow errors: \n",
-            'MSG' => "User *%s*just fired!",
+            'MSG' => "User *%s* just fired!",
             'DONE' => "Certs for *%s* have sent.",
             'VIRT' => "User *%s* is virtual!",
             'NOTREG' => "User *%s* not found!",
