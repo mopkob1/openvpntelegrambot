@@ -46,10 +46,10 @@ class local
     }
 
     public static function releaseCommand(
-        pipecommand $command, piperesult $result, \Exception $oncommand = null)
+        pipecommand $command, piperesult $result, \Exception $oncommand = null, int $time = 1)
     {
         fwrite($command->pipe($result->onpipe()), "$command");
-        sleep(1);
+        sleep($time);
         return $result->read($command->unic(), $oncommand);
     }
 
