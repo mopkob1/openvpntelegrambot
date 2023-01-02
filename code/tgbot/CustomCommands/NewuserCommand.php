@@ -116,7 +116,7 @@ class NewuserCommand extends UserCommand
         $command = new pipecommand(consts::PIPE(), 'newuser %s', $name);
 
         $resp = local::releaseCommand(
-            $command, $this->result, new bashCommandErrorException(msg::newuser('CREATE_ERROR')));
+            $command, $this->result, new bashCommandErrorException(msg::newuser('CREATE_ERROR')), 3);
 
         local::adduser($name, consts::CERTsSTORE());
 
