@@ -101,7 +101,7 @@ class NewuserCommand extends UserCommand
 
         $resp = local::releaseCommand(
             $command, $this->result, new bashCommandErrorException(msg::newuser('GET_ERROR')));
-        $file = sprintf("%s/%s", consts::CLIENTS(), $name);
+        $file = sprintf("%s/%s", consts::CLIENTS(), $name, 3);
         $this->sendFile("$file.zip", $userid, "Certs for computers.");
         $this->sendFile("$file.ovpn", $userid, "Certs for mobiles.");
         unlink("$file.zip");
