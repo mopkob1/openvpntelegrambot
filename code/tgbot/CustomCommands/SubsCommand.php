@@ -40,6 +40,8 @@ class SubsCommand extends UserCommand
                 throw new otherException(msg::subs('NOTFOUND'));
 
             $users = array_merge($this->users(consts::SUBSSTORE()), [$tosubs]);
+            $users = array_unique($users);
+
             $this->storeusers($users, consts::SUBSSTORE());
 
             if ($tosubs != $this->chatid())

@@ -4,6 +4,8 @@ namespace Longman\TelegramBot\Commands\UserCommands;
 
 use App\assets\consts;
 use App\assets\msg;
+use App\share\miscGetters;
+use Helper\miscBroadcast;
 use Helper\miscCommands;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
@@ -12,6 +14,8 @@ use loandbeholdru\slimcontrol\api\otherException;
 class UnsubsCommand extends UserCommand
 {
     use miscCommands;
+    use miscGetters;
+    use miscBroadcast;
 
     protected $name = 'unsubs';                      // Your command's name
     protected $description = msg::UNSUBS_DESC; // Your command description
@@ -26,7 +30,8 @@ class UnsubsCommand extends UserCommand
             $tounsubs = empty($tounsubs)
                 ? $this->chatid() : $tounsubs;
 
-            $users = $this->users(consts::SUBSSTORE());
+            $users = $this->userid($tounsubs)
+                ->users(consts::SUBSSTORE());
             $newusers = array_diff($users, [$tounsubs]);
 
             if (count($users) === count($newusers)){
