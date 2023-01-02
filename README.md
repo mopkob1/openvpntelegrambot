@@ -397,7 +397,8 @@ It is made to demonstrate the capabilities and to support micro-workgroups.
 2-3 certificates with each other's visibility are free.
 
 With any business proposals, you can contact the administrators of the demo bot.
-![msg514032165-65910](https://user-images.githubusercontent.com/4906501/209350640-a581e6a8-8a68-42da-9d76-215442cb9a4b.jpg)
+![msg137975175-67323](https://user-images.githubusercontent.com/4906501/210281561-7b32f5f4-e7cb-4673-87a9-2bf65296733e.jpg)
+
 
 ## Contributing
 The easiest way to contribute is to use this software and share it on your social networks.
