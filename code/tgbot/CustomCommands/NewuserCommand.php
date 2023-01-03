@@ -100,7 +100,7 @@ class NewuserCommand extends UserCommand
         $command = new pipecommand(consts::PIPE(), 'cert %s', $name);
 
         $resp = local::releaseCommand(
-            $command, $this->result, new bashCommandErrorException(msg::newuser('GET_ERROR')), 3);
+            $command, $this->result, new bashCommandErrorException(msg::newuser('GET_ERROR')));
         $file = sprintf("%s/%s", consts::CLIENTS(), $name);
         $this->sendFile("$file.zip", $userid, "Certs for computers.");
         $this->sendFile("$file.ovpn", $userid, "Certs for mobiles.");
@@ -116,7 +116,7 @@ class NewuserCommand extends UserCommand
         $command = new pipecommand(consts::PIPE(), 'newuser %s', $name);
 
         $resp = local::releaseCommand(
-            $command, $this->result, new bashCommandErrorException(msg::newuser('CREATE_ERROR')), 3);
+            $command, $this->result, new bashCommandErrorException(msg::newuser('CREATE_ERROR')));
 
         local::adduser($name, consts::CERTsSTORE());
 
