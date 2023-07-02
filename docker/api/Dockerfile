@@ -15,14 +15,13 @@ ENV IDEKEY=$IDE_KEY
 
 RUN apk add --no-cache --virtual cron supervisor grep \
     --update libzip-dev curl-dev \
-    git curl wget -U shadow \
-    $PHPIZE_DEPS --update linux-headers
+    git curl wget -U shadow
 
-RUN pecl install xdebug \
-  && docker-php-ext-enable xdebug
+#RUN pecl install xdebug \
+#  && docker-php-ext-enable xdebug
 
-RUN mkdir -p /home/xdebug \
-    mkdir -p /var/log/supervisor
+RUN mkdir -p /home/xdebug 
+RUN mkdir -p /var/log/supervisor
 
 COPY ./docker/api/xdebug-debug.ini /home/xdebug/xdebug-debug.ini
 COPY ./docker/api/xdebug-default.ini /home/xdebug/xdebug-default.ini

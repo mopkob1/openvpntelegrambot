@@ -79,7 +79,10 @@ function executer() {
         echo "User: $USER1 already exist." >> "$ERR"
         return
       }
-      easyrsa build-client-full "$USER1" nopass 1>&2 >> "$ERR" && reporter "$ERR" "$DONE"
+cat << EOF | easyrsa build-client-full "$USER1" nopass 1>&2 >> "$ERR" && reporter "$ERR" "$DONE"
+yes
+EOF
+#      easyrsa build-client-full "$USER1" nopass 1>&2 >> "$ERR" && reporter "$ERR" "$DONE"
       ;;
     revoke)
       stop_vis.sh "$USER1" 1>&2
