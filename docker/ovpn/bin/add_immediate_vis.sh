@@ -38,15 +38,16 @@ TEST=$(iptables-save | grep "$IP1/32 -d $IP2/32")
 
 exist "$TEST" "Hosts $IP1($1) and $IP2($2) are visible to each other"
 
-iptptp $IP1 $IP2 > "$TMP"
+iptables $(iptptp "$IP1" "$IP2")
 
-[ "$3" ] || iptptp $IP2 $IP1 >> "$TMP"
-iptables-save > "$IPT"
-START=$(lineinrange "$IPT" "\*filter" "$LOOKFOR")
-insertafter "$START" "$TMP" "$IPT" > "$IPT.1"
-iptables-restore < "$IPT.1"
-rm "$TMP"
-rm "$IPT.1"
+[ "$3" ] || iptables $(iptptp "$IP2" "$IP1")
+
+# iptables-save > "$IPT"
+# START=$(lineinrange "$IPT" "\*filter" "$LOOKFOR")
+# insertafter "$START" "$TMP" "$IPT" > "$IPT.1"
+# iptables-restore < "$IPT.1"
+#rm "$TMP"
+#rm "$IPT.1"
 iptables-save > "$IPT"
 
 echo "Hosts $IP1($1) and $IP2($2) are visible to each other"
